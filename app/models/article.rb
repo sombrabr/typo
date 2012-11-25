@@ -429,7 +429,7 @@ class Article < Content
  
     self.body_and_extended = self.body_and_extended + duplicated.body_and_extended
 
-    #duplicated.delete
+    duplicated.delete
 
     self.save
   end
