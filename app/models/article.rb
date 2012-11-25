@@ -208,6 +208,10 @@ class Article < Content
     blog.url_for(:controller => "/admin/content", :action =>"edit", :id => id)
   end
 
+  def merge_url
+    blog.url_for(:controller => "/admin/content", :action =>"merge", :id => id)
+  end
+
   def delete_url
     blog.url_for(:controller => "/admin/content", :action =>"destroy", :id => id)
   end
@@ -416,6 +420,20 @@ class Article < Content
     user.admin? || user_id == user.id
   end
 
+  def merge_with(id)
+    duplicated = Article.where(:id => id).first
+
+    if duplicated.nil?
+      return
+    end
+ 
+    self.body_and_extended = self.body_and_extended + duplicated.body_and_extended
+
+    #duplicated.delete
+
+    self.save
+  end
+
   protected
 
   def set_published_at
@@ -466,4 +484,5 @@ class Article < Content
     to = to - 1 # pull off 1 second so we don't overlap onto the next day
     return from..to
   end
+
 end
