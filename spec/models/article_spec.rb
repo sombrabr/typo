@@ -42,8 +42,9 @@ describe Article do
 
     describe "with valid duplicate id" do
       before do
-        @a = Article.new({:body_and_extended => "body 1"})
+        @a = Article.new({:body => "body 1"})
         @a.stub(:save).and_return(true)
+        @a.stub(:body_and_extended).and_return(@a.body)
         @duplicated = mock('article', :body => "body 2", :delete => true)
       end
 

@@ -429,9 +429,13 @@ class Article < Content
  
     self.body_and_extended = self.body_and_extended + duplicated.body_and_extended
 
-    duplicated.delete
+    self.comments << duplicated.comments
 
-    self.save
+    return unless self.save
+
+    #duplicated.delete
+
+    self
   end
 
   protected
