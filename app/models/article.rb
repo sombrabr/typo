@@ -433,7 +433,7 @@ class Article < Content
 
     return unless self.save
 
-    #duplicated.delete
+    duplicated.delete
 
     self
   end
